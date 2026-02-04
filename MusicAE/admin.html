@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MusicAE - Admin Panel</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="admin-view">
+    
+    <!-- Login Admin -->
+    <div id="adminAuthScreen" class="auth-screen active">
+        <div class="auth-background">
+            <div class="grid-overlay admin-grid"></div>
+            <canvas id="particlesCanvas"></canvas>
+        </div>
+        
+        <div class="auth-container">
+            <div class="auth-logo">
+                <div class="logo-icon admin">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h1 class="logo-text">MUSIC<span class="highlight">AE</span></h1>
+                <p class="logo-subtitle">ADMIN CONTROL PANEL</p>
+            </div>
+            
+            <div class="auth-box">
+                <div class="admin-badge">RESTRICTED ACCESS</div>
+                <form id="adminLoginForm" class="auth-form active">
+                    <div class="form-group">
+                        <label>ADMIN USERNAME</label>
+                        <input type="text" id="adminUser" placeholder="Administrator" required>
+                        <div class="input-border"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>SECURE PASSWORD</label>
+                        <input type="password" id="adminPass" placeholder="••••••••" required>
+                        <div class="input-border"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>2FA CODE</label>
+                        <input type="text" id="admin2FA" placeholder="000000" maxlength="6" required>
+                        <div class="input-border"></div>
+                    </div>
+                    <button type="submit" class="btn-submit admin-btn">
+                        <span>AUTHENTICATE</span>
+                        <div class="btn-bg"></div>
+                    </button>
+                </form>
+                <p class="admin-warning">⚠️ Unauthorized access is prohibited</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel Admin -->
+    <div id="adminApp" class="main-app admin-app">
+        
+        <!-- Sidebar Admin -->
+        <aside class="sidebar admin-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <div class="logo-mini admin">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <span>ADMIN <strong>PANEL</strong></span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <button class="nav-btn active" data-view="dashboard">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    <span>Dashboard</span>
+                    <div class="nav-indicator"></div>
+                </button>
+                <button class="nav-btn" data-view="users">
+                    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                    <span>Users</span>
+                    <div class="nav-indicator"></div>
+                </button>
+                <button class="nav-btn" data-view="songs">
+                    <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                    <span>Songs</span>
+                    <div class="nav-indicator"></div>
+                </button>
+                <button class="nav-btn" data-view="reviews">
+                    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                    <span>Reviews</span>
+                    <div class="nav-indicator"></div>
+                </button>
+                <button class="nav-btn" data-view="analytics">
+                    <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg>
+                    <span>Analytics</span>
+                    <div class="nav-indicator"></div>
+                </button>
+                <button class="nav-btn" data-view="settings">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6M5.64 5.64l4.24 4.24m4.24 4.24l4.24 4.24M1 12h6m6 0h6M5.64 18.36l4.24-4.24m4.24-4.24l4.24-4.24"/></svg>
+                    <span>Settings</span>
+                    <div class="nav-indicator"></div>
+                </button>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-card admin-card">
+                    <div class="user-avatar admin-avatar">A</div>
+                    <div class="user-info">
+                        <p class="user-name" id="adminName">Administrator</p>
+                        <p class="user-type">SUPER ADMIN</p>
+                    </div>
+                    <button class="btn-logout" id="adminLogoutBtn">
+                        <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Contenido Admin -->
+        <main class="main-content admin-content">
+            
+            <!-- Vista Dashboard -->
+            <section id="dashboardView" class="content-view active">
+                <header class="view-header">
+                    <div>
+                        <h1 class="view-title">System Dashboard</h1>
+                        <p class="view-subtitle">Real-time overview and statistics</p>
+                    </div>
+                    <div class="status-indicator">
+                        <span class="status-dot"></span>
+                        <span>System Online</span>
+                    </div>
+                </header>
+                
+                <div class="admin-stats-grid">
+                    <div class="admin-stat-card">
+                        <div class="stat-header">
+                            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                            <span>Total Users</span>
+                        </div>
+                        <h2 id="adminStatUsers">0</h2>
+                        <div class="stat-trend positive">
+                            <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+                            <span>+12% this month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-stat-card">
+                        <div class="stat-header">
+                            <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                            <span>Total Songs</span>
+                        </div>
+                        <h2 id="adminStatSongs">0</h2>
+                        <div class="stat-trend positive">
+                            <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+                            <span>+28% this month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-stat-card">
+                        <div class="stat-header">
+                            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                            <span>Total Downloads</span>
+                        </div>
+                        <h2 id="adminStatDownloads">0</h2>
+                        <div class="stat-trend positive">
+                            <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+                            <span>+45% this month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-stat-card">
+                        <div class="stat-header">
+                            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                            <span>Total Reviews</span>
+                        </div>
+                        <h2 id="adminStatReviews">0</h2>
+                        <div class="stat-trend positive">
+                            <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+                            <span>+18% this month</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="admin-grid">
+                    <div class="admin-panel">
+                        <div class="panel-header">
+                            <h3>Recent Activity</h3>
+                            <button class="btn-text">View All</button>
+                        </div>
+                        <div class="activity-feed" id="adminActivityFeed"></div>
+                    </div>
+                    
+                    <div class="admin-panel">
+                        <div class="panel-header">
+                            <h3>System Health</h3>
+                        </div>
+                        <div class="health-metrics">
+                            <div class="metric">
+                                <div class="metric-label">
+                                    <span>CPU Usage</span>
+                                    <span class="metric-value">23%</span>
+                                </div>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 23%"></div>
+                                </div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">
+                                    <span>Memory</span>
+                                    <span class="metric-value">67%</span>
+                                </div>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 67%"></div>
+                                </div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">
+                                    <span>Storage</span>
+                                    <span class="metric-value">42%</span>
+                                </div>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 42%"></div>
+                                </div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">
+                                    <span>Bandwidth</span>
+                                    <span class="metric-value">56%</span>
+                                </div>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 56%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vista Users -->
+            <section id="usersView" class="content-view">
+                <header class="view-header">
+                    <div>
+                        <h1 class="view-title">User Management</h1>
+                        <p class="view-subtitle">Manage all registered users</p>
+                    </div>
+                    <div class="header-actions">
+                        <div class="search-box">
+                            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                            <input type="text" id="searchUsers" placeholder="Search users...">
+                        </div>
+                        <button class="btn-primary" id="btnAddUser">
+                            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            <span>Add User</span>
+                        </button>
+                    </div>
+                </header>
+                <div class="data-table">
+                    <table id="usersTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Songs</th>
+                                <th>Reviews</th>
+                                <th>Joined</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Vista Songs -->
+            <section id="songsView" class="content-view">
+                <header class="view-header">
+                    <div>
+                        <h1 class="view-title">Songs Database</h1>
+                        <p class="view-subtitle">Manage all songs in the platform</p>
+                    </div>
+                    <div class="header-actions">
+                        <div class="search-box">
+                            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                            <input type="text" id="searchSongs" placeholder="Search songs...">
+                        </div>
+                        <select class="filter-select" id="filterGenre">
+                            <option value="all">All Genres</option>
+                            <option value="Rock">Rock</option>
+                            <option value="Pop">Pop</option>
+                            <option value="Hip Hop">Hip Hop</option>
+                            <option value="Electronic">Electronic</option>
+                            <option value="Jazz">Jazz</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </header>
+                <div class="data-table">
+                    <table id="songsTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Artist</th>
+                                <th>Genre</th>
+                                <th>User</th>
+                                <th>Downloads</th>
+                                <th>Rating</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="songsTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Vista Reviews -->
+            <section id="reviewsView" class="content-view">
+                <header class="view-header">
+                    <div>
+                        <h1 class="view-title">Reviews & Comments</h1>
+                        <p class="view-subtitle">Moderate user feedback</p>
+                    </div>
+                    <div class="header-actions">
+                        <select class="filter-select" id="filterReviews">
+                            <option value="all">All Reviews</option>
+                            <option value="pending">Pending</option>
+                            <option value="approved">Approved</option>
+                            <option value="flagged">Flagged</option>
+                        </select>
+                    </div>
+                </header>
+                <div class="reviews-list" id="adminReviewsList"></div>
+            </section>
+
+            <!-- Vista Analytics -->
+            <section id="analyticsView" class="content-view">
+                <header class="view-header">
+                    <h1 class="view-title">Analytics & Reports</h1>
+                </header>
+                <div class="analytics-container">
+                    <div class="chart-panel">
+                        <h3>User Growth</h3>
+                        <canvas id="userGrowthChart"></canvas>
+                    </div>
+                    <div class="chart-panel">
+                        <h3>Popular Genres</h3>
+                        <canvas id="genresChart"></canvas>
+                    </div>
+                    <div class="chart-panel">
+                        <h3>Download Activity</h3>
+                        <canvas id="downloadsChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vista Settings -->
+            <section id="settingsView" class="content-view">
+                <header class="view-header">
+                    <h1 class="view-title">System Settings</h1>
+                </header>
+                <div class="settings-container">
+                    <div class="settings-panel">
+                        <h3>General Settings</h3>
+                        <div class="setting-item">
+                            <label>Site Name</label>
+                            <input type="text" value="MusicAE" class="setting-input">
+                        </div>
+                        <div class="setting-item">
+                            <label>Allow Registrations</label>
+                            <label class="toggle">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>Require Email Verification</label>
+                            <label class="toggle">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-panel">
+                        <h3>Content Settings</h3>
+                        <div class="setting-item">
+                            <label>Max Song Upload per User</label>
+                            <input type="number" value="100" class="setting-input">
+                        </div>
+                        <div class="setting-item">
+                            <label>Enable Downloads</label>
+                            <label class="toggle">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>Moderate Reviews</label>
+                            <label class="toggle">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-primary">Save Settings</button>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="admin-script.js"></script>
+</body>
+</html>
