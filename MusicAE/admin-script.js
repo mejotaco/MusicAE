@@ -110,7 +110,7 @@ function showAdminApp() {
 }
 
 // ====================================
-// NAVEGACIÓN ADMIN
+// NAVEGACIÓN ADMIN PRUEBAa
 // ====================================
 
 function switchAdminView(view) {
@@ -121,6 +121,7 @@ function switchAdminView(view) {
     document.getElementById(view + 'View').classList.add('active');
     
     renderAdminView(view);
+    document.querySelectorAll('.content-view').forEach(v => v.classList.remove('active'));
 }
 
 function renderAdminView(view) {
