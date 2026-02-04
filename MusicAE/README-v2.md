@@ -1,35 +1,4 @@
-# MusicAE - Advanced Edition v2.0
-## 🎵 Con Base de Datos IndexedDB y Sistema de Hilos
-
-**ACTUALIZADO** - Ahora con base de datos real, reproducción mejorada y sistema completo de hilos de discusión.
-
-## 🚀 ¿Qué hay de nuevo en v2.0?
-
-### ✨ Nuevas Características
-
-1. **📊 Base de Datos Real (IndexedDB)**
-   - Persistencia real de datos en el navegador
-   - No más LocalStorage simulado
-   - Datos estructurados y relaciones entre tablas
-
-2. **🎵 Reproductor Mejorado**
-   - Reproducción de YouTube 100% funcional
-   - Manejo de errores mejorado
-   - Control de progreso preciso
-   - Miniaturas de YouTube automáticas
-
-3. **💬 Sistema de Hilos Completo**
-   - Crea hilos de discusión en cada canción
-   - Responde a hilos existentes
-   - Sistema de conversaciones anidadas
-
-4. **⭐ Reviews Mejoradas**
-   - Sistema de calificación por estrellas
-   - Comentarios detallados
-   - Promedio de ratings por canción
-
-## 📁 Archivos del Proyecto
-
+# MusicAE
 ```
 MusicAE/
 ├── index.html          # Vista de usuario
@@ -41,7 +10,7 @@ MusicAE/
 └── README.md           # Documentación
 ```
 
-## 🎯 Cómo Usar
+## Cómo Usar
 
 ### 1. Descargar todos los archivos
 
@@ -49,7 +18,7 @@ Descarga los **7 archivos** haciendo click en cada uno:
 - index.html
 - admin.html
 - styles.css
-- **database.js** ⭐ NUEVO
+- **database.js** 
 - script.js
 - admin-script.js
 - README.md
@@ -63,7 +32,7 @@ Descarga los **7 archivos** haciendo click en cada uno:
    📄 index.html
    📄 admin.html
    📄 styles.css
-   📄 database.js        ⭐ NUEVO
+   📄 database.js       
    📄 script.js
    📄 admin-script.js
    📄 README.md
@@ -73,9 +42,9 @@ Descarga los **7 archivos** haciendo click en cada uno:
 
 - Doble click en `index.html`
 - Se abrirá en tu navegador
-- ✅ La primera vez cargará datos de ejemplo automáticamente
+-  La primera vez cargará datos de ejemplo automáticamente
 
-## 🔐 Credenciales
+##  Credenciales
 
 ### Usuario Normal
 - **Registrate**: Puedes crear tu propio usuario
@@ -89,7 +58,7 @@ Descarga los **7 archivos** haciendo click en cada uno:
 - Password: `admin123`
 - 2FA: `123456`
 
-## 🎵 Cómo Funciona la Música
+## Cómo Funciona la Música
 
 ### Agregar Canciones
 
@@ -103,13 +72,13 @@ Descarga los **7 archivos** haciendo click en cada uno:
 
 ### URLs de YouTube Compatibles
 
-✅ **Formatos que funcionan:**
+ **Formatos que funcionan:**
 ```
 https://www.youtube.com/watch?v=VIDEO_ID
 https://youtu.be/VIDEO_ID
 ```
 
-❌ **No usar:**
+ **No usar:**
 - Playlists
 - Videos privados
 - Videos con restricciones de reproducción
@@ -139,7 +108,7 @@ https://www.youtube.com/watch?v=hTWKbfoikeg  (Smells Like Teen Spirit)
 3. Escribe tu respuesta abajo
 4. Click en "Enviar Respuesta"
 
-## ⭐ Sistema de Reviews
+## Sistema de Reviews
 
 ### Agregar una Review
 
